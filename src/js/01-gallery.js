@@ -1,4 +1,5 @@
 import SimpleLightbox from 'simplelightbox';
+console.log(SimpleLightbox);
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 import { galleryItems } from './gallery-items';
