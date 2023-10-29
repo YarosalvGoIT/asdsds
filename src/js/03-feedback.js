@@ -1,56 +1,42 @@
 import throttle from 'lodash.throttle';
+const STORAGE_KEY = 'feedback-form-state';
+let formData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+const testButton = document.querySelector('.test-button');
 
-const form = document.querySelector('.feedback-form');
-const email = form.elements.email;
-const message = form.elements.message;
-const localStorageKey = 'feedback-form-state';
+const refs = {
+  form: document.querySelector('.feedback-form'),
+};
 
-/**
- * init formData
- */
-let formData = {};
+initialFormInputs();
 
-/**
- * reset formData
- */
-function resetFormData() {
-  formData = { email: '', message: '' };
+refs.form.addEventListener('input', throttle(onInputForm, 500));
+refs.form.addEventListener('submit', onSubmitForm);
+
+function onInputForm(event) {
+  formData[event.target.name] = event.target.value;
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 }
 
-resetFormData();
-
-/**
- * check localStorage
- */
-if (localStorage.getItem(localStorageKey)) {
-  formData = JSON.parse(localStorage.getItem(localStorageKey));
+function onSubmitForm(event) {
+  event.preventDefault();
+  console.log(event.target);
+  const [email, message] = refs.form.elements;
+  console.dir(event.target);
+  if (!email.value || !message.value) {
+    return alert('Заповніть всі поля');
+  }
+  localStorage.removeItem(STORAGE_KEY);
+  refs.form.reset();
+  formData = {};
 }
 
-/**
- * set values from localStorage
- */
-email.value = formData.email;
-message.value = formData.message;
+function initialFormInputs() {
+  const initialValues = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
-/**
- * add event listeners on inputs
- */
-form.addEventListener(
-  'input',
-  throttle(evt => {
-    formData[evt.target.name] = evt.target.value;
-    localStorage.setItem(localStorageKey, JSON.stringify(formData));
-  }),
-  500
-);
-
-/**
- * add event listener on submit
- */
-form.addEventListener('submit', evt => {
-  evt.preventDefault();
-  console.log(formData);
-  resetFormData();
-  localStorage.removeItem(localStorageKey);
-  form.reset();
-});
+  if (initialValues) {
+    const [email, message] = refs.form.elements;
+    email.value = initialValues.email || '';
+    message.value = initialValues.message || '';
+  }
+}
