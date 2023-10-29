@@ -12,6 +12,7 @@ export default defineConfig({
     rollupOptions: {
       input: glob.sync('./src/*.html'),
     },
+    commonjsOptions: RollupCommonJSOptions,
     outDir: '../dist',
   },
   plugins: [injectHTML(), FullReload(['./src/**/**.html'])],
