@@ -4,6 +4,7 @@ import injectHTML from 'vite-plugin-html-inject';
 import FullReload from 'vite-plugin-full-reload';
 
 export default defineConfig(({ command }) => {
+  // console.log('MY COMMAND 👋👋👋 ', command);
   // if (command === 'serve') {
   //   return {
   //     define: {
