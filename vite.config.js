@@ -3,19 +3,34 @@ import glob from 'glob';
 import injectHTML from 'vite-plugin-html-inject';
 import FullReload from 'vite-plugin-full-reload';
 
-export default defineConfig({
-  define: {
-    global: {},
-  },
-  root: 'src',
-  build: {
-    rollupOptions: {
-      input: glob.sync('./src/*.html'),
-      entryFileNames: '[commonHelpers]-[hash].js',
-      chunkFileNames: '[commonHelpers]-[hash].js',
-      assetFileNames: '[commonHelpers]-[hash].[ext]',
-    },
-    outDir: '../dist',
-  },
-  plugins: [injectHTML(), FullReload(['./src/**/**.html'])],
+export default defineConfig(({ command }) => {
+  if (command === 'serve') {
+    return {
+      define: {
+        global: {},
+      },
+      root: 'src',
+      build: {
+        rollupOptions: {
+          input: glob.sync('./src/*.html'),
+        },
+        outDir: '../dist',
+      },
+      plugins: [injectHTML(), FullReload(['./src/**/**.html'])],
+    };
+  } else {
+    return {
+      root: 'src',
+      build: {
+        rollupOptions: {
+          entryFileNames: '[helpersCommon]-[hash].js',
+          chunkFileNames: '[helpersCommon]-[hash].js',
+          assetFileNames: '[helpersCommon]-[hash].[ext]',
+          input: glob.sync('./src/*.html'),
+        },
+        outDir: '../dist',
+      },
+      plugins: [injectHTML(), FullReload(['./src/**/**.html'])],
+    };
+  }
 });
