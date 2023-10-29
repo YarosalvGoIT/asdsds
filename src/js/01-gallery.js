@@ -1,10 +1,8 @@
 import SimpleLightbox from 'simplelightbox';
-import Player from '@vimeo/player';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-const iframe = document.querySelector('iframe');
-const player = new Player(iframe);
+
 import { galleryItems } from './gallery-items';
-console.log(SimpleLightbox);
+
 const refs = {
   galleryList: document.querySelector('.gallery'),
 };
@@ -33,9 +31,3 @@ function createGalleryMarkup(galleryItems) {
 }
 const lightbox = new SimpleLightbox('.gallery a');
 // lightbox.refresh();
-
-const { email, message } = evt.target.elements;
-
-const formData = {};
-
-formData[event.target.name] = event.target.value;
