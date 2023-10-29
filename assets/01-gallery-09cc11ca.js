@@ -1,4 +1,4 @@
-import{c as W,g as _}from"./commonjsHelpers-a1841df3.js";/* empty css             */var P={};/*!
+import{c as W,g as _}from"./_commonjsHelpers-a1841df3.js";/* empty css             */var P={};/*!
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.com
 	Available for use under the MIT License
