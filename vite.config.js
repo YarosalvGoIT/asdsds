@@ -4,33 +4,33 @@ import injectHTML from 'vite-plugin-html-inject';
 import FullReload from 'vite-plugin-full-reload';
 
 export default defineConfig(({ command }) => {
-  if (command === 'serve') {
-    return {
-      define: {
-        _global: {},
-        global: {},
+  // if (command === 'serve') {
+  //   return {
+  //     define: {
+  //       _global: {},
+  //       global: {},
+  //     },
+  //     root: 'src',
+  //     build: {
+  //       rollupOptions: {
+  //         input: glob.sync('./src/*.html'),
+  //       },
+  //       outDir: '../dist',
+  //     },
+  //     plugins: [injectHTML(), FullReload(['./src/**/**.html'])],
+  //   };
+  // } else {
+  return {
+    root: 'src',
+    build: {
+      rollupOptions: {
+        input: glob.sync('./src/*.html'),
       },
-      root: 'src',
-      build: {
-        rollupOptions: {
-          input: glob.sync('./src/*.html'),
-        },
-        outDir: '../dist',
-      },
-      plugins: [injectHTML(), FullReload(['./src/**/**.html'])],
-    };
-  } else {
-    return {
-      root: 'src',
-      build: {
-        rollupOptions: {
-          input: glob.sync('./src/*.html'),
-        },
-        outDir: '../dist',
-      },
-      plugins: [injectHTML(), FullReload(['./src/**/**.html'])],
-    };
-  }
+      outDir: '../dist',
+    },
+    plugins: [injectHTML(), FullReload(['./src/**/**.html'])],
+  };
+  // }
 });
 
 // export default defineConfig(({ command, mode }) => {
