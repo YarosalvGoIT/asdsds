@@ -19,3 +19,4 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       />
     </a>
     </li>`).join("")}new te(".gallery a");
+//# sourceMappingURL=01-gallery-35627a55.js.map
